@@ -71,13 +71,14 @@ class Game(object):
     """ This class represents an instance of the game. If we need to
         reset the game we'd just need to create a new instance of this
         class. """
-    song = "Track 1 - Artista Desconocido"
+    song = "Humph! - Pentagon"
     pygame.font.init()
     fuente = pygame.font.Font(None, 20)
+    pygame.mixer.init()
+    pygame.mixer.music.load('/home/dev-05/Documents/ld-python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
+    pygame.mixer.music.play()
 
     def __init__(self):
-        """ Constructor. Create all our attributes and initialize
-        the game. """
 
         self.score = 0
         self.game_over = False
@@ -86,7 +87,7 @@ class Game(object):
         self.block_list = pygame.sprite.Group()
         self.all_sprites_list = pygame.sprite.Group()
 
-        # Create the block sprites
+        # BLOQUES
         for i in range(20):
             block = Block()
 
@@ -96,14 +97,11 @@ class Game(object):
             self.block_list.add(block)
             self.all_sprites_list.add(block)
 
-        # Create the player
+        # JUGADOR
         self.player = Player()
         self.all_sprites_list.add(self.player)
 
     def process_events(self):
-        """ Process all of the events. Return a "True" if we need
-            to close the window. """
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
@@ -114,10 +112,6 @@ class Game(object):
         return False
 
     def run_logic(self):
-        """
-        This method is run each time through the frame. It
-        updates positions and checks for collisions.
-        """
         if not self.game_over:
             # Move all the sprites
             self.all_sprites_list.update()
@@ -133,12 +127,18 @@ class Game(object):
 
             if len(self.block_list) == 0:
                 self.game_over = True
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+               print('click')
+
+        return False
 
     def display_frame(self, screen):
         """ Display everything to the screen for the game. """
         screen.fill(COLOR_FONDO)
 
         if self.game_over:
+            pygame.mixer.music.stop()
             text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Haz clic para jugar de nuevo", True, NEGRO)
             center_x = (ANCHO_VENTANA // 2) - (text.get_width() // 2)
             center_y = (ALTO_VENTANA // 2) - (text.get_height() // 2)
@@ -158,7 +158,6 @@ def main():
     """ Main program function. """
     # Initialize Pygame and set up the window
     pygame.init()
-
     size = [ANCHO_VENTANA, ALTO_VENTANA]
     screen = pygame.display.set_mode(size)
 
