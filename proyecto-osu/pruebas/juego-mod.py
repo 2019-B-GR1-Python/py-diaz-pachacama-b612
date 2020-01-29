@@ -17,8 +17,8 @@ COLOR_FONDO = (227, 158, 193)
 COLOR_GUIA = (172, 172, 222)
 COLOR_CIRCULO = (184, 51, 106)
 NEGRO = (229, 252, 255)
+BLACK = (0, 0, 0)
 IMAGEN_FONDO = "osu.jpeg"
-
 
 ANCHO_VENTANA = 700
 ALTO_VENTANA = 500
@@ -33,8 +33,10 @@ class Block(pygame.sprite.Sprite):
     def __init__(self):
         """ Constructor, create the image of the block. """
         super().__init__()
-        self.image = pygame.Surface([50, 50])
-        self.image.fill(COLOR_CIRCULO)
+        picture = pygame.image.load("circle.png").convert()
+        background_image = pygame.transform.scale(picture, (55, 55))
+        self.image = background_image
+        self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
     def reset_pos(self):
@@ -75,11 +77,11 @@ class Game(object):
     pygame.font.init()
     fuente = pygame.font.Font(None, 20)
     pygame.mixer.init()
-    pygame.mixer.music.load('/home/dev-05/Documents/ld-python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
+    pygame.mixer.music.load(
+        '/home/dev-05/Documents/ld-python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
     pygame.mixer.music.play()
 
     def __init__(self):
-
         self.score = 0
         self.game_over = False
 
@@ -88,11 +90,18 @@ class Game(object):
         self.all_sprites_list = pygame.sprite.Group()
 
         # BLOQUES
+        ypos = (100,200,300,400,500)
+        xpos = [100,200,300,400,500,600,700]
+        counter = 0
         for i in range(20):
             block = Block()
-
-            block.rect.x = random.randrange(ANCHO_VENTANA)
-            block.rect.y = random.randrange(60, ALTO_VENTANA-20)
+            if (counter > 6):
+                counter = 0
+            else:
+                block.rect.x = xpos[counter]
+                counter =  counter + 1
+            print(block.rect.x)
+            block.rect.y = random.choice(ypos)
 
             self.block_list.add(block)
             self.all_sprites_list.add(block)
@@ -100,6 +109,7 @@ class Game(object):
         # JUGADOR
         self.player = Player()
         self.all_sprites_list.add(self.player)
+
 
     def process_events(self):
         for event in pygame.event.get():
@@ -110,6 +120,7 @@ class Game(object):
                     self.__init__()
 
         return False
+
 
     def run_logic(self):
         if not self.game_over:
@@ -129,9 +140,10 @@ class Game(object):
                 self.game_over = True
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-               print('click')
+                print('click')
 
         return False
+
 
     def display_frame(self, screen):
         """ Display everything to the screen for the game. """
@@ -139,7 +151,8 @@ class Game(object):
 
         if self.game_over:
             pygame.mixer.music.stop()
-            text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Haz clic para jugar de nuevo", True, NEGRO)
+            text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Haz clic para jugar de nuevo", True,
+                                      NEGRO)
             center_x = (ANCHO_VENTANA // 2) - (text.get_width() // 2)
             center_y = (ALTO_VENTANA // 2) - (text.get_height() // 2)
             screen.blit(text, [center_x, center_y])
