@@ -126,25 +126,16 @@ class Game(object):
         if not self.game_over:
             # Move all the sprites
             self.all_sprites_list.update()
-            if event.type == pygame.MOUSEBUTTONUP:
-                pos = pygame.mouse.get_pos()
-
-                # get a list of all sprites that are under the mouse cursor
-                #clicked_sprites = [s for s in sprites if s.rect.collidepoint(pos)]
-            # See if the player block has collided with anything.
-            blocks_hit_list = pygame.sprite.spritecollide(self.player, self.block_list, True)
-            clicked_sprites = [s for s in self.block_list if s.rect.collidepoint(pos)]
-            # Check the list of collisions.
+            pos = pygame.mouse.get_pos()
+            blocks_hit_list = [s for s in self.block_list if s.rect.collidepoint(pos)]
             for block in blocks_hit_list:
                 self.score += 1
                 print(self.score)
+                self.block_list.remove(block)
                 # You can do something with "block" here.
 
             if len(self.block_list) == 0:
                 self.game_over = True
-        for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                print('click')
 
         return False
 
