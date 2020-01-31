@@ -100,7 +100,6 @@ class Game(object):
             else:
                 block.rect.x = xpos[counter]
                 counter =  counter + 1
-            print(block.rect.x)
             block.rect.y = random.choice(ypos)
 
             self.block_list.add(block)
@@ -112,28 +111,27 @@ class Game(object):
 
 
     def process_events(self):
+        pos = pygame.mouse.get_pos()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if self.game_over:
                     self.__init__()
+                else:
+                    blocks_hit_list = [s for s in self.block_list if s.rect.collidepoint(pos)]
+                    for block in blocks_hit_list:
+                        self.block_list.remove(block)
+                        self.all_sprites_list.remove(block)
+                        self.score += 1
+                        print(self.score)
 
         return False
 
 
     def run_logic(self):
         if not self.game_over:
-            # Move all the sprites
-            self.all_sprites_list.update()
-            pos = pygame.mouse.get_pos()
-            blocks_hit_list = [s for s in self.block_list if s.rect.collidepoint(pos)]
-            for block in blocks_hit_list:
-                self.score += 1
-                print(self.score)
-                self.block_list.remove(block)
-                # You can do something with "block" here.
-
+            self.block_list.update()
             if len(self.block_list) == 0:
                 self.game_over = True
 
