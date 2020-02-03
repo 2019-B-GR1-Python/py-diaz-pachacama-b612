@@ -70,16 +70,14 @@ class Player(pygame.sprite.Sprite):
 
 
 class Game(object):
-    """ This class represents an instance of the game. If we need to
-        reset the game we'd just need to create a new instance of this
-        class. """
     song = "Humph! - Pentagon"
     pygame.font.init()
     fuente = pygame.font.Font(None, 20)
-    pygame.mixer.init()
-    pygame.mixer.music.load(
-        '/home/dev-05/Documents/ld-python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
-    pygame.mixer.music.play()
+    musica_fondo = pygame.mixer
+    musica_fondo.init()
+    musica_fondo.music.load(
+        'L:/Familia/Documents/2019B-OCTAVOSEMESTRE/Python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
+    musica_fondo.music.play(-1)
 
     def __init__(self):
         self.score = 0
@@ -90,8 +88,8 @@ class Game(object):
         self.all_sprites_list = pygame.sprite.Group()
 
         # BLOQUES
-        ypos = (100,200,300,400,500)
-        xpos = [100,200,300,400,500,600,700]
+        ypos = (100, 200, 300, 400, 500)
+        xpos = [100, 200, 300, 400, 500, 600, 700]
         counter = 0
         for i in range(20):
             block = Block()
@@ -108,7 +106,6 @@ class Game(object):
         # JUGADOR
         self.player = Player()
         self.all_sprites_list.add(self.player)
-
 
     def process_events(self):
         pos = pygame.mouse.get_pos()
@@ -128,8 +125,7 @@ class Game(object):
 
         return False
 
-
-    def run_logic(self):
+    def run_logic(self, pos):
         if not self.game_over:
             self.block_list.update()
             if len(self.block_list) == 0:
@@ -138,27 +134,31 @@ class Game(object):
         return False
 
 
-    def display_frame(self, screen):
-        """ Display everything to the screen for the game. """
-        screen.fill(COLOR_FONDO)
+def display_frame(self, screen):
+    """ Display everything to the screen for the game. """
+    screen.fill(COLOR_FONDO)
 
-        if self.game_over:
-            pygame.mixer.music.stop()
-            text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Haz clic para jugar de nuevo", True,
-                                      NEGRO)
-            center_x = (ANCHO_VENTANA // 2) - (text.get_width() // 2)
-            center_y = (ALTO_VENTANA // 2) - (text.get_height() // 2)
-            screen.blit(text, [center_x, center_y])
+    if self.game_over:
+        self.musica_fondo.music.stop()
+        text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Haz clic para jugar de nuevo", True,
+                                  NEGRO)
+        center_x = (ANCHO_VENTANA // 2) - (text.get_width() // 2)
+        center_y = (ALTO_VENTANA // 2) - (text.get_height() // 2)
+        screen.blit(text, [center_x, center_y])
 
-        if not self.game_over:
-            puntuacion = self.fuente.render(f"Puntuación: {self.score}", True, NEGRO)
-            cancion_sonando = self.fuente.render(f"Canción sonando: {self.song}", True, NEGRO)
-            screen.blit(puntuacion, (550, 30))
-            screen.blit(cancion_sonando, (30, 30))
-            self.all_sprites_list.draw(screen)
+    if not self.game_over:
+        puntuacion = self.fuente.render(f"Puntuación: {self.score}", True, NEGRO)
+        cancion_sonando = self.fuente.render(f"Canción sonando: {self.song}", True, NEGRO)
+        screen.blit(puntuacion, (550, 30))
+        screen.blit(cancion_sonando, (30, 30))
+        self.all_sprites_list.draw(screen)
 
-        pygame.display.flip()
+    pygame.display.flip()
 
+def get_pos():
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            return pygame.mouse.get_pos()
 
 def main():
     """ Main program function. """
@@ -181,7 +181,6 @@ def main():
     while not done:
         # Process events (keystrokes, mouse clicks, etc)
         done = game.process_events()
-
         # Update object positions, check for collisions
         game.run_logic()
 
