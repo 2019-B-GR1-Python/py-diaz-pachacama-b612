@@ -76,7 +76,7 @@ class Game(object):
     musica_fondo = pygame.mixer
     musica_fondo.init()
     musica_fondo.music.load(
-        'L:/Familia/Documents/2019B-OCTAVOSEMESTRE/Python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
+        'C:/Users/Pamela/Documents/GitHub/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
     musica_fondo.music.play(-1)
 
     def __init__(self):
