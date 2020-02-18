@@ -1,14 +1,3 @@
-"""
-Show the proper way to organize a game using the a game class.
-
-Sample Python/Pygame Programs
-Simpson College Computer Science
-http://programarcadegames.com/
-http://simpson.edu/computer-science/
-
-Explanation video: http://youtu.be/O4Y5KrNgP_c
-"""
-
 import pygame
 import random
 
@@ -23,9 +12,7 @@ IMAGEN_FONDO = "osu.jpeg"
 ANCHO_VENTANA = 700
 ALTO_VENTANA = 500
 
-
 # --- Classes ---
-
 
 class Block(pygame.sprite.Sprite):
     """ This class represents a simple block the player collects. """
@@ -118,14 +105,12 @@ class Game(object):
                 else:
                     blocks_hit_list = [s for s in self.block_list if s.rect.collidepoint(pos)]
                     for block in blocks_hit_list:
-                        self.block_list.remove(block)
-                        self.all_sprites_list.remove(block)
                         self.score += 1
                         print(self.score)
 
         return False
 
-    def run_logic(self, pos):
+    def run_logic(self):
         if not self.game_over:
             self.block_list.update()
             if len(self.block_list) == 0:
@@ -134,31 +119,26 @@ class Game(object):
         return False
 
 
-def display_frame(self, screen):
-    """ Display everything to the screen for the game. """
-    screen.fill(COLOR_FONDO)
+    def display_frame(self, screen):
+        """ Display everything to the screen for the game. """
+        screen.fill(COLOR_FONDO)
 
-    if self.game_over:
-        self.musica_fondo.music.stop()
-        text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Haz clic para jugar de nuevo", True,
+        if self.game_over:
+            self.musica_fondo.music.stop()
+            text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Haz clic para jugar de nuevo", True,
                                   NEGRO)
-        center_x = (ANCHO_VENTANA // 2) - (text.get_width() // 2)
-        center_y = (ALTO_VENTANA // 2) - (text.get_height() // 2)
-        screen.blit(text, [center_x, center_y])
+            center_x = (ANCHO_VENTANA // 2) - (text.get_width() // 2)
+            center_y = (ALTO_VENTANA // 2) - (text.get_height() // 2)
+            screen.blit(text, [center_x, center_y])
 
-    if not self.game_over:
-        puntuacion = self.fuente.render(f"Puntuación: {self.score}", True, NEGRO)
-        cancion_sonando = self.fuente.render(f"Canción sonando: {self.song}", True, NEGRO)
-        screen.blit(puntuacion, (550, 30))
-        screen.blit(cancion_sonando, (30, 30))
-        self.all_sprites_list.draw(screen)
+        if not self.game_over:
+            puntuacion = self.fuente.render(f"Puntuación: {self.score}", True, NEGRO)
+            cancion_sonando = self.fuente.render(f"Canción sonando: {self.song}", True, NEGRO)
+            screen.blit(puntuacion, (550, 30))
+            screen.blit(cancion_sonando, (30, 30))
+            self.all_sprites_list.draw(screen)
 
-    pygame.display.flip()
-
-def get_pos():
-    for event in pygame.event.get():
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            return pygame.mouse.get_pos()
+        pygame.display.flip()
 
 def main():
     """ Main program function. """
