@@ -1,18 +1,18 @@
 import pygame
 import random
-
+import pantalla_inicial as pi
 # --- Global constants ---
 COLOR_FONDO = (227, 158, 193)
 COLOR_TEXTO = (229, 252, 255)
 NEGRO = (0, 0, 0)
 IMAGEN_FONDO = "osu.jpeg"
-IMAGEN_PUNTERO = "L:/Familia/Documents/2019B-OCTAVOSEMESTRE/Python/py-diaz-pachacama-b612/proyecto-osu/pruebas/puntero.png"
 ANCHO_VENTANA = 700
 ALTO_VENTANA = 500
 CLIC_SEGUNDOS = 1
 YPOS = (100, 150, 200, 250, 300, 350, 400)
 XPOS = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600]
-PATH_CANCION = "L:/Familia/Documents/2019B-OCTAVOSEMESTRE/Python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg"
+PATH_CANCION_P = "C:/Users/Pamela/Documents/GitHub/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg"
+PATH_CANCION_L = "L:/Familia/Documents/2019B-OCTAVOSEMESTRE/Python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg"
 
 # ---- ID PARA API ----
 
@@ -79,9 +79,7 @@ class Game(object):
     fuente = pygame.font.Font(None, 20)
     musica_fondo = pygame.mixer
     musica_fondo.init()
-    # musica_fondo.music.load(
-    #    'C:/Users/Pamela/Documents/GitHub/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
-    musica_fondo.music.load(PATH_CANCION)
+    musica_fondo.music.load(PATH_CANCION_L)
 
     def __init__(self):
         self.musica_fondo.music.play(-1)
@@ -114,7 +112,6 @@ class Game(object):
                         block.isClicked = True
                         self.game_over = block.reset_pos()
                         self.score += 1
-                        print(self.score)
             if event.type == pygame.USEREVENT:
                 for block in self.block_list:
                     block.comprobar_tiempo()
@@ -122,7 +119,7 @@ class Game(object):
                         self.game_over = True
             if event.type == pygame.KEYDOWN:
                 if self.game_over:
-                    self.__init__()
+                    pi.main()
 
         return False
 
@@ -140,7 +137,7 @@ class Game(object):
 
         if self.game_over:
             self.musica_fondo.music.stop()
-            text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Presiona cualquier tecla para jugar de nuevo",
+            text = self.fuente.render(F"Perdiste, tu puntuación final es: {self.score}. Presiona cualquier tecla para regresar al menu",
                                       True,
                                       COLOR_TEXTO)
             center_x = (ANCHO_VENTANA // 2) - (text.get_width() // 2)

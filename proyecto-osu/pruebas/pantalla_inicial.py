@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-import juego_osu as juego
+import juego_mod as juego
 
 
 class Opcion:
@@ -129,8 +129,7 @@ def salir_del_programa():
     sys.exit(0)
 
 
-if __name__ == '__main__':
-
+def main():
     salir = False
     opciones = [
         ("Jugar", comenzar_nuevo_juego),
@@ -139,12 +138,11 @@ if __name__ == '__main__':
 
     pygame.font.init()
     screen = pygame.display.set_mode((700, 500))
-    fondo = pygame.image.load("fondo2.png").convert()
+    fondo = pygame.image.load("fondo_principal.png").convert()
     tamaño_img = pygame.transform.scale(fondo,(700,500))
     menu = Menu(opciones)
     pygame.mouse.set_visible(False)
     while not salir:
-
         for e in pygame.event.get():
             if e.type == QUIT:
                 salir = True
@@ -155,3 +153,6 @@ if __name__ == '__main__':
 
         pygame.display.flip()
         pygame.time.delay(10)
+
+if __name__ == '__main__':
+    main()
