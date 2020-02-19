@@ -1,6 +1,8 @@
 import random
 import pygame
 from pygame.locals import *
+import juego_osu as juego
+
 
 
 class Opcion:
@@ -120,11 +122,11 @@ class Menu:
 
 def comenzar_nuevo_juego():
     print(" Función que muestra un nuevo juego.")
+    juego.main()
 
 def salir_del_programa():
     import sys
-    print
-    " Gracias por utilizar este programa."
+    print(" Gracias por utilizar este programa.")
     sys.exit(0)
 
 

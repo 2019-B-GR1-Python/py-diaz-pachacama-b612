@@ -1,6 +1,7 @@
 import pygame
 import random
 
+
 # --- Global constants ---
 COLOR_FONDO = (227, 158, 193)
 COLOR_GUIA = (172, 172, 222)
