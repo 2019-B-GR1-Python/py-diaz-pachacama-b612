@@ -79,7 +79,7 @@ class Game(object):
     fuente = pygame.font.Font(None, 20)
     musica_fondo = pygame.mixer
     musica_fondo.init()
-    musica_fondo.music.load(PATH_CANCION_L)
+    musica_fondo.music.load(PATH_CANCION_P)
 
     def __init__(self):
         self.musica_fondo.music.play(-1)
