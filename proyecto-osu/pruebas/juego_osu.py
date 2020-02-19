@@ -7,13 +7,13 @@ COLOR_FONDO = (227, 158, 193)
 COLOR_TEXTO = (229, 252, 255)
 NEGRO = (0, 0, 0)
 IMAGEN_FONDO = "osu.jpeg"
-IMAGEN_PUNTERO = "L:/Familia/Documents/2019B-OCTAVOSEMESTRE/Python/py-diaz-pachacama-b612/proyecto-osu/pruebas/puntero.png"
+IMAGEN_PUNTERO = "C:/Users/Pamela/Documents/GitHub/py-diaz-pachacama-b612/proyecto-osu/pruebas/puntero.png"
 ANCHO_VENTANA = 700
 ALTO_VENTANA = 500
 CLIC_SEGUNDOS = 1
 YPOS = (100, 150, 200, 250, 300, 350, 400)
 XPOS = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600]
-PATH_CANCION = "L:/Familia/Documents/2019B-OCTAVOSEMESTRE/Python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg"
+PATH_CANCION = "C:/Users/Pamela/Documents/GitHub/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg"
 
 # ---- ID PARA API ----
 
@@ -80,9 +80,9 @@ class Game(object):
     fuente = pygame.font.Font(None, 20)
     musica_fondo = pygame.mixer
     musica_fondo.init()
-    # musica_fondo.music.load(
-    #    'C:/Users/Pamela/Documents/GitHub/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
-    # musica_fondo.music.load(PATH_CANCION)
+    #musica_fondo.music.load(
+      #  'C:/Users/Pamela/Documents/GitHub/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg')
+    musica_fondo.music.load(PATH_CANCION)
 
     def __init__(self):
         self.musica_fondo.music.play(-1)
