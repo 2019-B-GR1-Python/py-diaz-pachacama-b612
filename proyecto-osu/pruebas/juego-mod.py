@@ -14,6 +14,11 @@ YPOS = (100, 150, 200, 250, 300, 350, 400)
 XPOS = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600]
 PATH_CANCION = "L:/Familia/Documents/2019B-OCTAVOSEMESTRE/Python/py-diaz-pachacama-b612/proyecto-osu/recursos/pentagon-humph.ogg"
 
+# ---- ID PARA API ----
+
+id_usuario = 1
+id_cancion = 1
+
 # --- Classes ---
 
 class Block(pygame.sprite.Sprite):
