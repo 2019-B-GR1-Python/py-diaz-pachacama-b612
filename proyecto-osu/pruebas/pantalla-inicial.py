@@ -1,8 +1,6 @@
-import random
 import pygame
 from pygame.locals import *
 import juego_osu as juego
-
 
 
 class Opcion:
@@ -121,6 +119,7 @@ class Menu:
 
 
 def comenzar_nuevo_juego():
+
     print(" Función que muestra un nuevo juego.")
     juego.main()
 
@@ -143,7 +142,7 @@ if __name__ == '__main__':
     fondo = pygame.image.load("fondo2.png").convert()
     tamaño_img = pygame.transform.scale(fondo,(700,500))
     menu = Menu(opciones)
-
+    pygame.mouse.set_visible(False)
     while not salir:
 
         for e in pygame.event.get():
