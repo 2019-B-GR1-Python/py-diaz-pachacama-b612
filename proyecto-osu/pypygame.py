@@ -1,5 +1,4 @@
 import pygame
-import numpy as np
 
 puntuacion = 100
 nombre_cancion = "Track 1 - Artista desconocido"
@@ -8,7 +7,7 @@ screen = pygame.display.set_mode((600, 400))
 clock = pygame.time.Clock()
 pygame.display.set_caption("OSU! Game")
 picture = pygame.image.load("./recursos/osu.jpeg").convert()
-background_image = pygame.transform.scale(picture, (600, 400))
+pame = pygame.transform.scale(picture, (600, 400))
 done = False
 tamanio = (50, 50)
 radio = 25
